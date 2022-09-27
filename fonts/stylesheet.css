@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'Zen Kaku Gothic Antique';
+    src: url('ZenKakuGothicAntique-Black.eot');
+    src: local('Zen Kaku Gothic Antique Black'), local('ZenKakuGothicAntique-Black'),
+        url('ZenKakuGothicAntique-Black.eot?#iefix') format('embedded-opentype'),
+        url('ZenKakuGothicAntique-Black.woff2') format('woff2'),
+        url('ZenKakuGothicAntique-Black.woff') format('woff'),
+        url('ZenKakuGothicAntique-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Zen Kaku Gothic Antique bold';
+    src: url('ZenKakuGothicAntique-Bold.eot');
+    src: local('Zen Kaku Gothic Antique Bold'), local('ZenKakuGothicAntique-Bold'),
+        url('ZenKakuGothicAntique-Bold.eot?#iefix') format('embedded-opentype'),
+        url('ZenKakuGothicAntique-Bold.woff2') format('woff2'),
+        url('ZenKakuGothicAntique-Bold.woff') format('woff'),
+        url('ZenKakuGothicAntique-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Zen Kaku Gothic Antique';
+    src: url('ZenKakuGothicAntique-Light.eot');
+    src: local('Zen Kaku Gothic Antique Light'), local('ZenKakuGothicAntique-Light'),
+        url('ZenKakuGothicAntique-Light.eot?#iefix') format('embedded-opentype'),
+        url('ZenKakuGothicAntique-Light.woff2') format('woff2'),
+        url('ZenKakuGothicAntique-Light.woff') format('woff'),
+        url('ZenKakuGothicAntique-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Zen Kaku Gothic Antique';
+    src: url('ZenKakuGothicAntique-Medium.eot');
+    src: local('Zen Kaku Gothic Antique Medium'), local('ZenKakuGothicAntique-Medium'),
+        url('ZenKakuGothicAntique-Medium.eot?#iefix') format('embedded-opentype'),
+        url('ZenKakuGothicAntique-Medium.woff2') format('woff2'),
+        url('ZenKakuGothicAntique-Medium.woff') format('woff'),
+        url('ZenKakuGothicAntique-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Zen Kaku Gothic Antique';
+    src: url('ZenKakuGothicAntique-Regular.eot');
+    src: local('Zen Kaku Gothic Antique Regular'), local('ZenKakuGothicAntique-Regular'),
+        url('ZenKakuGothicAntique-Regular.eot?#iefix') format('embedded-opentype'),
+        url('ZenKakuGothicAntique-Regular.woff2') format('woff2'),
+        url('ZenKakuGothicAntique-Regular.woff') format('woff'),
+        url('ZenKakuGothicAntique-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

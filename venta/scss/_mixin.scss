@@ -1,0 +1,95 @@
+
+@mixin _xs {
+    @media (max-width: 575.98px){
+        @content;
+    }
+}
+@mixin _sm {
+    @media (min-width: 576px) and (max-width: 767.98px){
+        @content;
+    }
+}
+@mixin _md {
+    @media (min-width: 768px) and (max-width: 991.98px){
+        @content;
+    }
+}
+@mixin _lg {
+    @media (min-width: 992px) and (max-width: 1199.98px){
+        @content;
+    }
+}
+@mixin _xl {
+    @media (min-width: 1200px) and (max-width: 1399.98px){
+        @content;
+    }
+}
+@mixin _xxl {
+    @media (min-width: 1400px){
+        @content;
+    }
+}
+@mixin border {
+    @include _xs{
+        margin-top: 30px;
+    }
+    @include _sm{
+        margin-top: 30px;
+    }
+    @include _md{
+        margin-top: 40px;
+    }
+}
+@mixin title_block {
+    font-weight: bold;
+    line-height: 118%;
+    color: #000000;
+    @include adaptiv-font(50, 36);
+    @include _xxl{
+        font-size: 50px;
+    }
+    @include _xs{
+        margin-bottom: 20px;
+    }
+    @include _sm{
+        margin-bottom: 30px;
+    }
+    @include _md{
+        margin-bottom: 40px;
+    }
+}
+$maxWidth: 1920;
+@mixin adaptiv-font($pcSize, $mobSize) {
+ $addSize: $pcSize - $mobSize;
+ $maxWidth: $maxWidth - 320;
+ font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+
+@mixin ul-nostyle {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+@mixin double-shadow($color) {
+	@include box-shadow(0 1px 0 lighten($color, 10%) inset, 0 -1px 0 darken($color, 10%) inset);
+}
+
+@mixin hover-style($color) {
+	&:hover {
+		background: lighten($color, 3%);
+	}
+}
+
+@mixin animation($content) {
+  animation: $content;
+  -moz-animation: $content;
+  -webkit-animation: $content;
+}
+
+@mixin keyframes($name) {
+  @keyframes #{$name} { @content; }
+  @-moz-keyframes #{$name} { @content; }
+  @-webkit-keyframes #{$name} { @content; }
+}

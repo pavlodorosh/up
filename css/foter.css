@@ -1,0 +1,15 @@
+.faq_block .faq_block_one{
+    color:maroon;
+    font-size: 35px;
+}
+/* #faq_id .faq_block_one{
+    color:maroon;
+    font-size: 35px;
+} */
+
+.faq_block_one .title.active + ul li{
+    color:
+    maroon;
+    font-size: 35px;
+    background: #03a9f4;
+}

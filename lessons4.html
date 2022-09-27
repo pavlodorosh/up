@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="./form.php" method="post" enctype="multipart/form-data" name="form">
+        <!-- <form accept-charset="UTF-8" method="get" enctype="text/plain"= http json target > -->
+
+        <fieldset>
+            <legend>Облікові дані:</legend>
+            <div>
+                <label>Ваше Ім'я:</label>
+                <input type="text" name="your_name" value="Павло" placeholder="Введіть своє ім'я">
+            </div>
+            <div>
+                <label>Введіть пароль:</label>
+                <input type="password" name="your_pass" placeholder="Введіть пароль">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Додоткові парметри:</legend>
+            <div>
+                <label>Заблокований</label>
+                <input type="text" value="Заблокований" disabled>
+            </div>
+            <div>
+                <label>Незаблокований</label>
+                <input type="text" value="Незаблокований" readonly>
+            </div>
+
+            <div>
+                <label>Завантажити файл</label>
+                <input type="file" name="file_name">
+            </div>
+
+            <div>
+                <label>Завантажити файли</label>
+                <input type="file" name="file_name" multiple>
+            </div>
+
+            <div>
+                <label>Вебертіь країну</label>
+                <input type="text" name="your_country" list="country_list">
+                <datalist id="country_list">
+                    <option>Україна</option>
+                    <option>Польща</option>
+                    <option>США</option>
+                </datalist>
+            </div>
+            <div>
+                <select>
+                    <option value="">Вебертіь місто</option>
+                    <option value="Львів" selected>Львів</option>
+                    <option value="Рівне">Рівне</option>
+                    <option value="3">Варша</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Параметри стилів:</legend>
+
+            <div>
+                <label>Діапазон</label>
+                <input type="range" name="diapazon" min="0" max="100" step="25"
+                    oninput="this.nextElementSibling.value = this.value">
+                <output>0</output>
+            </div>
+
+            <div>
+                <label>Дата</label>
+                <input type="date" name="date">
+            </div>
+
+            <div>
+                <label>Колір</label>
+                <input type="color" name="select_color">
+            </div>
+
+            <div>
+                <label>Ваші коментарі</label>
+                <textarea name="comment" placeholder="Ваші коментарі"></textarea>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Виберіть декілька значеня checkbox</legend>
+
+            <div>
+                <label for="select1">Варіант 1</label>
+                <input type="checkbox" name="select_varifntions" value="select1" id="select1" />
+            </div>
+            <div>
+                <label for="select2">Варіант 2</label>
+                <input type="checkbox" name="select_varifntions" value="select2" id="select2" />
+            </div>
+            <div>
+                <label for="">Варіант 3</label>
+                <input type="checkbox" name="select_varifntions" value="select3" />
+            </div>
+
+        </fieldset>
+        <fieldset>
+            <legend>Виберіть одного значеня radio</legend>
+            <label> Виберіть значення </label>
+            <div>
+                <label for="select1_radio">Варіант 1</label>
+                <input type="radio" name="select_varifntions_radio" value="select1_radio" id="select1_radio" />
+            </div>
+            <div>
+                <label for="select2_radio">Варіант 2</label>
+                <input type="radio" name="select_varifntions_radio" value="select2_radio" id="select2_radio" />
+            </div>
+            <div>
+                <label for="select3_radio">Варіант 3</label>
+                <input type="radio" name="select_varifntions_radio" value="select3_radio" id="select3_radio" />
+            </div>
+
+        </fieldset>
+
+
+
+        <fieldset>
+            <legend>Прогрес</legend>
+
+            <progress id="pregress" max="100" min="10"></progress>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Функціональні кнопки</legend>
+
+            <div>
+                <input type="submit" value="Надіслати дані" />
+            </div>
+            <br />
+            <br>
+
+            <input type="reset" value="Скинути форму" />
+            <button type="submit">Надіслати дані2</button>
+
+        </fieldset>
+        <!-- lable -->
+        <!-- input min max size step type=text, searh, tel, url, email, password, date, month, week, time, number, range, color, radio, checkbox, file, submit, reset, button -->
+        <!-- button -->
+        <!-- select -->
+        <!-- option -->
+        <!-- optgroup -->
+        <!-- textarea -->
+        <!-- progress -->
+        <!-- autocomplete -->
+    </form>
+
+
+
+    <div>
+        <h2>Аудио</h2>
+        <div>
+            <!-- <audio autoplay="autoplay" loop="loop" preload="preload"> -->
+            <audio controls="controls">
+                <source src="./audio/music.mp3" type="audio/mp3" />
+            </audio>
+            <audio controls="controls">
+                <source src="./audio/music.aac" type="audio/aac" />
+            </audio>
+            <audio controls="controls">
+                <source src="./audio/music.ogg" type="audio/ogg" />
+            </audio>
+            <audio controls="controls">
+                <source src="./audio/music.wav" type="audio/wav" />
+            </audio>
+        </div>
+    </div>
+
+    <div>
+        <h2>Відео</h2>
+        <div>
+            <!-- <video autoplay="autoplay" loop="loop" preload="preload"> -->
+            <video controls="controls" poster="./images/google_image.png" width="500px" height="400px">
+                <source src="./video/animals.mp4" type="video/mp4" />
+            </video>
+            <video controls="controls" poster="./images/google_image.png" width="500px" height="400px"
+                src="./video/animals.mp4" type="video/mp4">
+
+            </video>
+            <video controls="controls">
+                <source src="./video/animals.mp4" type="video/mp4" />
+            </video>
+            <video controls="controls">
+                <source src="./video/animals.ogv" type="video/ogv" />
+            </video>
+            <video controls="controls">
+                <source src="./video/animals.webm" type="video/webm" />
+            </video>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
