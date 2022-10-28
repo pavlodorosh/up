@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="64f107f0-a837-4d2b-97af-0066b1d30999" name="ud" url="http://ud">
+        <fileTransfer mountedRoot="E:\web\Programs_Install\OpenServer\domains\UD" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
