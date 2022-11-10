@@ -1,6 +1,6 @@
 <?php
 
-require_once './';
+require_once 'inc/functions.php';
 
 $um = [1,2,3];
 $name = ['Nazar', 'Taras', 'Max', 'Andriy', 'Olga'];

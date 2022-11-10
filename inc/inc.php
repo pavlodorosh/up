@@ -16,3 +16,6 @@ $goods = [
         'state' => 'used',
     ],
 ];
+
+
+$test = "TEST";
