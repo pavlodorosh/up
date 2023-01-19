@@ -503,3 +503,439 @@ SELECT NOW(), DATE(NOW());
 
 -- 45
 SELECT NOW(), TIME(NOW());
+
+
+# mysql.exe -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 71
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use `up`
+Database changed
+mysql> SELECT DATEDIFF('2023-01-01', '2023-01-19');
++--------------------------------------+
+| DATEDIFF('2023-01-01', '2023-01-19') |
++--------------------------------------+
+|                                  -18 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF('2023-01-01', '2023-01-19') AS days;
++------+
+| days |
++------+
+|  -18 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('2023-01-19') as days;
++--------+
+| days   |
++--------+
+| 738904 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('1582-01-01') as days;
++--------+
+| days   |
++--------+
+| 577814 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('0-0-0') as days;
++------+
+| days |
++------+
+| NULL |
++------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT TO_DAYS('0-0-1') as days;
++------+
+| days |
++------+
+| NULL |
++------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> SELECT TO_DAYS('0-1-1') as days;
++------+
+| days |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('0-1-1') as days;
++------+
+| days |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('100-1-1') as days;
++-------+
+| days  |
++-------+
+| 36525 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('1000-1-1') as days;
++--------+
+| days   |
++--------+
+| 365243 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TO_DAYS('2000-1-1') as days;
++--------+
+| days   |
++--------+
+| 730485 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT f.cname, s.name, f.rating FROM customers f, customers s WHERE f.rating = s.rating;
+ERROR 1054 (42S22): Unknown column 's.name' in 'field list'
+mysql> SELECT f.cname, s.cname, f.rating FROM customers f, customers s WHERE f.rating = s.rating;
++--------+--------+--------+
+| cname  | cname  | rating |
++--------+--------+--------+
+| Andrey | Andrey |    100 |
+| Max    | Max    |    200 |
+| Nazar  | Nazar  |    300 |
+| Nik    | Nazar  |    300 |
+| Olga   | Olga   |    500 |
+| Taras  | Taras  |    800 |
+| Nazar  | Nik    |    300 |
+| Nik    | Nik    |    300 |
++--------+--------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT f.cname, s.cname, f.rating FROM customers f, customers s WHERE f.rating = s.rating AND f.cname > s.cname;
++-------+-------+--------+
+| cname | cname | rating |
++-------+-------+--------+
+| Nik   | Nazar |    300 |
++-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT f.cname, s.cname, f.rating FROM customers f, customers s WHERE f.rating = s.rating AND f.cname < s.cname;
++-------+-------+--------+
+| cname | cname | rating |
++-------+-------+--------+
+| Nazar | Nik   |    300 |
++-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT f.sname, s.sname, s.city FROM salers f, salers s WHERE f.city = s.city AND f.sname < s.sname;
+Empty set (0.00 sec)
+
+mysql> SELECT f.sname, s.sname, s.city FROM salers f, salers s WHERE f.city = s.city;
++--------+--------+----------+
+| sname  | sname  | city     |
++--------+--------+----------+
+| Pol    | Pol    | London   |
+| Monika | Monika | San Jose |
+| Mikle  | Mikle  | UK       |
+| Skif   | Skif   | Paris    |
+| Staf   | Staf   | New York |
++--------+--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT cname FROM customers WHERE snum = ( SELECT snum FROM salers WHERE  sname = 'Mikle');
++-------+
+| cname |
++-------+
+| Max   |
++-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM orders WHERE snum = ( SELECT snum FROM salers WHERE city = 'London');
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT * FROM orders WHERE snum IN ( SELECT snum FROM salers WHERE city = 'London');
++------+--------+------------+------+------+
+| onum | amt    | odate      | cnum | snum |
++------+--------+------------+------+------+
+| 3003 | 785.13 | 2022-08-08 | 2006 | 1003 |
+| 3005 | 159.15 | 2020-04-04 | 2002 | 1001 |
++------+--------+------------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers WHERE snum IN ( SELECT snum FROM GROUP BY  snum HAVING COUNT (snum) > 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY  snum HAVING COUNT (snum) > 1)' at line 1
+mysql> SELECT snum, sname FROM salers WHERE snum IN ( SELECT snum FROM GROUP BY  snum HAVING COUNT(snum) > 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY  snum HAVING COUNT(snum) > 1)' at line 1
+mysql> SELECT snum, sname FROM salers WHERE snum IN ( SELECT snum FROM customers GROUP BY  snum HAVING COUNT(snum) > 1);
++------+--------+
+| snum | sname  |
++------+--------+
+| 1002 | Monika |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers WHERE snum NOT IN (SELECT snum FROM customers) ;
+Empty set (0.00 sec)
+
+mysql>  SELECT snum, sname FROM salers WHERE snum IN ( SELECT snum FROM customers GROUP BY  snum WHERE COUNT(snum) > 1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE COUNT(snum) > 1)' at line 1
+mysql>  SELECT snum, sname FROM salers WHERE snum IN ( SELECT snum FROM customers WHERE COUNT(snum) > 1);
+ERROR 1111 (HY000): Invalid use of group function
+mysql>  SELECT * FROM customers c WHERE '2020-04-04' IN SELECT odate FROM orders o WHERE o.cnum - c.num ) ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT odate FROM orders o WHERE o.cnum - c.num )' at line 1
+mysql>  SELECT * FROM customers c WHERE '2020-04-04' IN ( SELECT odate FROM orders o WHERE o.cnum - c.num ) ;
+ERROR 1054 (42S22): Unknown column 'c.num' in 'where clause'
+mysql>  SELECT * FROM customers c WHERE '2020-04-04' IN ( SELECT odate FROM orders o WHERE o.cnum - c.cnum ) ;
+ERROR 1690 (22003): BIGINT UNSIGNED value is out of range in '(`up`.`o`.`cnum` - `up`.`c`.`cnum`)'
+mysql>  SELECT * FROM customers c WHERE '2020-04-04' IN ( SELECT odate FROM orders o WHERE o.cnum - c.cnum ) ;
+ERROR 1690 (22003): BIGINT UNSIGNED value is out of range in '(`up`.`o`.`cnum` - `up`.`c`.`cnum`)'
+mysql>  SELECT * FROM customers c WHERE '2020-04-04' IN ( SELECT odate FROM orders o WHERE o.cnum = c.cnum ) ;
++------+-------+------+--------+------+-------+
+| cnum | cname | city | rating | snum | text  |
++------+-------+------+--------+------+-------+
+| 2002 | Max   | UK   |    200 | 1003 | mysql |
++------+-------+------+--------+------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT o.cnum, c.name,  c.city, c.rating, c.snum FROM orders o, customers c WHERE c.num = o.num AND odate = '2020-04-04';
+ERROR 1054 (42S22): Unknown column 'c.name' in 'field list'
+mysql> SELECT o.cnum, c.cname,  c.city, c.rating, c.snum FROM orders o, customers c WHERE c.num = o.num AND odate = '2020-04-04';
+ERROR 1054 (42S22): Unknown column 'c.num' in 'where clause'
+mysql> SELECT o.cnum, c.cname,  c.city, c.rating, c.snum FROM orders o, customers c WHERE c.cnum = o.cnum AND odate = '2020-04-04';
++------+-------+------+--------+------+
+| cnum | cname | city | rating | snum |
++------+-------+------+--------+------+
+| 2002 | Max   | UK   |    200 | 1003 |
++------+-------+------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE rating > 500 );
++------+--------+----------+-------+
+| snum | sname  | city     | comm  |
++------+--------+----------+-------+
+| 1001 | Pol    | London   |  0.12 |
+| 1002 | Monika | San Jose |  0.15 |
+| 1003 | Mikle  | London   |  0.13 |
+| 1004 | Skif   | Paris    |  0.17 |
+| 1010 | Staf   | New York | -0.25 |
++------+--------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM customers WHERE rating > 500
+    ->
+    ->
+    -> 1
+    ->
+    ->
+    ->
+    -> q
+    -> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE 5 > 1 );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1
+
+
+
+q
+SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE 5 > 1 )' at line 4
+mysql> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE rating < 100 );
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE rating > 500 );
++------+--------+----------+-------+
+| snum | sname  | city     | comm  |
++------+--------+----------+-------+
+| 1001 | Pol    | London   |  0.12 |
+| 1002 | Monika | San Jose |  0.15 |
+| 1003 | Mikle  | London   |  0.13 |
+| 1004 | Skif   | Paris    |  0.17 |
+| 1010 | Staf   | New York | -0.25 |
++------+--------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT s.sname FROM salers s, orders o WHERE o.snum = s.snum ;
++--------+
+| sname  |
++--------+
+| Skif   |
+| Staf   |
+| Mikle  |
+| Monika |
+| Pol    |
+| Staf   |
++--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT s.snum , s.sname FROM salers s, orders o WHERE o.snum = s.snum ;
++------+--------+
+| snum | sname  |
++------+--------+
+| 1004 | Skif   |
+| 1010 | Staf   |
+| 1003 | Mikle  |
+| 1002 | Monika |
+| 1001 | Pol    |
+| 1010 | Staf   |
++------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT s.snum , s.sname FROM salers s, orders o WHERE o.snum = s.snum AND o.cnum = ( SELECT c.cnum FROM customers c WHERE rating = 500 ) ;
++------+-------+
+| snum | sname |
++------+-------+
+| 1004 | Skif  |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.snum , s.sname FROM salers s, orders o WHERE o.snum = s.snum AND o.cnum IN ( SELECT c.cnum FROM customers c WHERE rating > 500 ) ;
++------+-------+
+| snum | sname |
++------+-------+
+| 1010 | Staf  |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.snum , s.sname FROM salers s, orders o WHERE o.snum = s.snum AND o.cnum IN ( SELECT c.cnum FROM customers c WHERE rating > 400 ) ;
++------+-------+
+| snum | sname |
++------+-------+
+| 1004 | Skif  |
+| 1010 | Staf  |
++------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE rating < 100 );
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE EXISTS ( SELECT * FROM customers WHERE rating > 100 );
++------+--------+----------+-------+
+| snum | sname  | city     | comm  |
++------+--------+----------+-------+
+| 1001 | Pol    | London   |  0.12 |
+| 1002 | Monika | San Jose |  0.15 |
+| 1003 | Mikle  | London   |  0.13 |
+| 1004 | Skif   | Paris    |  0.17 |
+| 1010 | Staf   | New York | -0.25 |
++------+--------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE NOT EXISTS ( SELECT * FROM customers WHERE rating > 100 );
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM salers WHERE NOT EXISTS ( SELECT * FROM customers WHERE rating < 100 );
++------+--------+----------+-------+
+| snum | sname  | city     | comm  |
++------+--------+----------+-------+
+| 1001 | Pol    | London   |  0.12 |
+| 1002 | Monika | San Jose |  0.15 |
+| 1003 | Mikle  | London   |  0.13 |
+| 1004 | Skif   | Paris    |  0.17 |
+| 1010 | Staf   | New York | -0.25 |
++------+--------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers
+    -> UNION
+    -> SELECT cnum, cname FROM customers;
++------+--------+
+| snum | sname  |
++------+--------+
+| 1001 | Pol    |
+| 1002 | Monika |
+| 1003 | Mikle  |
+| 1004 | Skif   |
+| 1010 | Staf   |
+| 2001 | Andrey |
+| 2002 | Max    |
+| 2003 | Nazar  |
+| 2004 | Olga   |
+| 2005 | Taras  |
+| 2006 | Nik    |
++------+--------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers  UNION  SELECT cnum, cname FROM customers;
++------+--------+
+| snum | sname  |
++------+--------+
+| 1001 | Pol    |
+| 1002 | Monika |
+| 1003 | Mikle  |
+| 1004 | Skif   |
+| 1010 | Staf   |
+| 2001 | Andrey |
+| 2002 | Max    |
+| 2003 | Nazar  |
+| 2004 | Olga   |
+| 2005 | Taras  |
+| 2006 | Nik    |
++------+--------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers
+    ->
+    -> ;
++------+--------+
+| snum | sname  |
++------+--------+
+| 1001 | Pol    |
+| 1002 | Monika |
+| 1003 | Mikle  |
+| 1004 | Skif   |
+| 1010 | Staf   |
++------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT snum, sname FROM salers
+    -> UNION
+    -> SELECT cnum FROM customers;
+ERROR 1222 (21000): The used SELECT statements have a different number of columns
+mysql> SELECT snum, city FROM salers
+    -> UNION ALL
+    -> SELECT snum, city FROM customers;
++------+----------+
+| snum | city     |
++------+----------+
+| 1001 | London   |
+| 1002 | San Jose |
+| 1003 | London   |
+| 1004 | Paris    |
+| 1010 | New York |
+| 1001 | London   |
+| 1003 | UK       |
+| 1002 | San Jose |
+| 1004 | Paris    |
+| 1010 | Poland   |
+| 1002 | Ukraine  |
++------+----------+
+11 rows in set (0.00 sec)
+
+mysql> SELECT snum, city FROM salers
+    -> UNION
+    -> SELECT snum, city FROM customers
+    -> ;
++------+----------+
+| snum | city     |
++------+----------+
+| 1001 | London   |
+| 1002 | San Jose |
+| 1003 | London   |
+| 1004 | Paris    |
+| 1010 | New York |
+| 1003 | UK       |
+| 1010 | Poland   |
+| 1002 | Ukraine  |
++------+----------+
+8 rows in set (0.00 sec)
