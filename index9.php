@@ -1,42 +1,100 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
 
-require_once 'inc/functions.php';
 
-$um = [1,2,3];
-$name = ['Nazar', 'Taras', 'Max', 'Andriy', 'Olga'];
-$name2 = [ 'name' => ' Andriy', 'year' => 22];
-$test = [];
+error_reporting(-1);
 
-$a = 200;
-$x = 100;
-$y = 10;
+use up\interfaces\{IGadget, I3D};
 
-sum();
-sum(55,13);
-sum($a,22);
-sum($a,$x);
-sum(100);
-sum($y2 , 100);
+use app\BookProduct;
+use app\Notebook;
 
-echo '<hr>';
+require_once __DIR__ . '/vendor/autoload.php';
 
-echo $a.'<br>';
-sum2 ($a, $x);
-echo $a.'<br>';
+function debug($date)
+{
+    echo '<pre>' . print_r($date, 1) . '</pre>';
+    echo '<pre>' . var_dump($date) . '</pre>';
+}
 
-echo '<hr>';
-$key = array_keys($name);
-echo '<pre>';
-print_r($key);
-echo '</pre>';
+function offerCase(IGadget $product)
+{
+    echo "<p>Чохол для гаджета - {$product->getName()}</p>";
+}
 
-echo '<hr>';
 
-$key2 = my_array_keys($name);
-echo '<pre>';
-print_r($key2);
-echo '</pre>';
+$book = new BookProduct('Eliktonik', 20, 1539);
+$notebook = new Notebook('Dell', 1000, 'AMD');
 
-echo '<hr>';
+// debug($book);
+// debug($notebook);
 
-echo $date;
+// var_dump($notebook instanceof IGadget);
+// var_dump($book instanceof IGadget);
+
+
+// $mail = new PHPMailer();
+// debug($mail);
+
+
+$a = new \app\A();
+$b = new \app\B();
+
+$a->getTest();
+echo '<br>';
+$b->getTest();
+echo '<br>';
+$b->getTest2();
+echo '<br>';
+$a->getTest2();
+echo '<br>';
+
+$book->doAction1();
+echo '<br>';
+$book->doAction2();
+echo '<br>';
+$book->doAction2()->doAction1();
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+
+$book->name;
+debug($book);
+
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+
+echo $book->name;
+
+echo $book->getProduct();
+
+echo $book;
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo '<br>';
+
+$book->test = 'TEST CONTENT';
+debug($book);
+
+
+
+$book->test = 'TEST';
+echo $book->test;
+debug($book);

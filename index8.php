@@ -1,76 +1,37 @@
-<?php  require_once 'components/header.php' ?>
-
 <?php
-
-include 'inc/inc2.php';
-echo '<h2>'.$incText.'</h2>';
+use PHPMailer\PHPMailer\PHPMailer;
 
 
-include_once 'inc/inc3.php';
-echo '<pre>';
-print_r($goods_1);
-echo '</pre>';
+error_reporting(-1);
 
-include_once 'inc/inc4.php';
+use up\interfaces\{IGadget, I3D};
 
-?>
-<?php
-include 'inc/inc2.php';
-echo '<h2>'.$incText.'</h2>';
-?>
-<?php
-include 'inc/inc22.php';
-echo '<h2>'.$incText.'</h2>';
-?>
+use app\BookProduct;
+use app\Notebook;
 
-<?php
-include_once 'inc/inc3.php';
-echo '<pre>';
-print_r($goods_1);
-echo '</pre>';
+require_once __DIR__ . '/vendor/autoload.php';
 
-include_once 'inc/inc4.php';
+function debug($date)
+{
+    echo '<pre>' . print_r($date, 1) . '</pre>';
+    echo '<pre>' . var_dump($date) . '</pre>';
+}
 
-?>
-<br>
-<br>
-<br>
-<br>
-<br>
-<hr>
-<hr>
-<hr>
-<br>
-<br>
-<br>
-<br>
-
-<?php
-
-// require '';
-// require_once '';
-
-require 'inc/inc2.php';
-echo '<h3>'.$incText.'</h3>';
-
-require_once 'inc/inc5.php';
+function offerCase(IGadget $product)
+{
+    echo "<p>Чохол для гаджета - {$product->getName()}</p>";
+}
 
 
-require 'inc/inc2.php';
-echo '<h3>'.$incText.'</h3>';
+$book = new BookProduct('Eliktonik', 20, 1539);
+$notebook = new Notebook('Dell', 1000, 'AMD');
 
-require_once 'inc/inc5.php';
+debug($book);
+debug($notebook);
 
-
-require 'inc/inc2.php';
-echo '<h3>'.$incText.'</h3>';
-
-
-require 'inc/inc2.php';
-echo '<h3>'.$incText.'</h3>';
+var_dump($notebook instanceof IGadget);
+var_dump($book instanceof IGadget);
 
 
-
-?>
-
-<?php  require_once 'components/footer.php' ?>
+$mail = new PHPMailer();
+debug($mail);

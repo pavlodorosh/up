@@ -1,73 +1,59 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
 
-$y = 100;
-$i = 5;
 
-$varfn = fn($i) => $i + $y;
+error_reporting(-1);
 
-function sumnumber ($i, $j){
-    return $i +$j;
+use up\interfaces\{IGadget, I3D};
+
+use app\BookProduct;
+use app\Notebook;
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+function debug($date)
+{
+    echo '<pre>' . print_r($date, 1) . '</pre>';
+    echo '<pre>' . var_dump($date) . '</pre>';
 }
 
-echo $varfn($i);
-echo '<pre>';
-var_dump($varfn(3));
-echo '</pre>';
-echo '<br>';
-echo '<br>';
-
-echo '<pre>';
-print_r($varfn(3));
-echo '</pre>';
-
-
-$my_array_keys = function ($arr){
-    $date = [];
-    foreach ($arr as $k => $v){
-        $date[] = $k;
-    }
-    return $date;
-};
-
-function my_array_keys($arr){
-    $date = [];
-    foreach ($arr as $k => $v){
-        $date[] = $k;
-    }
-
-    return $date;
+function offerCase(IGadget $product)
+{
+    echo "<p>Чохол для гаджета - {$product->getName()}</p>";
 }
 
-$um = [1,2,3];
-$name = ['Nazar', 'Taras', 'Max', 'Andriy', 'Olga'];
-$name2 = [ 'name' => ' Andriy', 'year' => 22];
-$test = [];
 
-// $my_array_keys = 123;
+$book = new BookProduct('Eliktonik', 20, 1539);
+$notebook = new Notebook('Dell', 1000, 'AMD');
 
-$key2 = $my_array_keys($name);
-echo '<pre>';
-print_r($key2);
-echo '</pre>';
+// debug($book);
+// debug($notebook);
+
+// var_dump($notebook instanceof IGadget);
+// var_dump($book instanceof IGadget);
 
 
+// $mail = new PHPMailer();
+// debug($mail);
 
 
+$a1 = \app\A::getInstanse();
+$a2 = \app\A::getInstanse();
 
 
+var_dump($a1);
+echo '<br>';
+echo '<br>';
+var_dump($a2);
 
 echo '<br>';
 echo '<br>';
+
+$b1 = \app\B::getInstanse();
+$b2 = \app\B::getInstanse();
+
+
+var_dump($b1);
 echo '<br>';
 echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
+var_dump($b2);

@@ -1,98 +1,55 @@
 <?php
-$goods = [
-    [
-        'title' => 'iPhone 12 pro MAX',
-        'price' => 800,
-        'state' => 'new',
-    ],
-    [
-        'title' => 'iPhone 11 pro MAX',
-        'price' => 600,
-        'state' => 'new',
-    ],
-    [
-        'title' => 'iPhone 8 Plus',
-        'price' => 200,
-        'state' => 'used',
-    ],
-];
-$goods_1 = [
-    [
-        'title' => 'iPhone 12 pro MAX',
-        'price' => 800,
-        'state' => 'used',
-    ],
-    [
-        'title' => 'iPhone 11 pro MAX',
-        'price' => 800,
-        'state' => 'new',
-    ]
-];
-
-$arr = array('MAx', 'Olga', 'Taras', 'Andr', 'Nazar', 'Vlad');
-$arr2 = array('MAx', 'Olga', 'Andr', 'Taras');
-
-echo '<br>';
-echo '<hr>';
 
 
-for ($i = 0; $i < count($arr); $i++ ){
-    // echo "element - {$i} value - {$arr[$i]}";
-    echo "element - {$i} value - {$arr[$i]} <br>";
+error_reporting(-1);
+require_once 'classes/Product.php';
+require_once 'classes/I3D.php';
+require_once 'classes/IGadget.php';
+require_once 'classes/BookProduct.php';
+require_once 'classes/NoteBook.php';
+
+function debug($date)
+{
+    echo '<pre>' . print_r($date, 1) . '</pre>';
+    echo '<pre>' . var_dump($date) . '</pre>';
 }
 
-echo '<br>';
-echo '<hr>';
-
-for ($i=0; $i < count($goods); $i++){
-    //echo $goods[$i];
-    echo '<pre>';
-    print_r($goods[$i]);
-    echo '</pre>';
-
-    echo '<br>';
-    for ($j = 0; $j <count($goods[$i]); $j++ ){
-        echo 'element -'.$i.' value -'.$goods[$i][$j].'<br>';
-    }
-    echo '<br>';
-    foreach ($goods[$i] as $value){
-        echo $value.'<br>';
-    }
-    echo '<br>';
-    foreach ($goods[$i] as $key => $value){
-        echo 'key -'.$key.' value -'.$value.'<br>';
-    }
-    echo '<br>';
-    foreach ($goods[$i] as $key => $value){
-        echo 'key -'.$key.' value -'.$goods[$i][$key].'<br>';
-    }
+function offerCase(IGadget $product)
+{
+    echo "<p>Чохол для гаджета - {$product->getName()}</p>";
 }
 
-echo '<br>';
-echo '<hr>';
 
-foreach ($goods as $good){
-    foreach($good as $key => $value){
-        echo 'key -'.$key.' value -'.$value.'<br>';
-        echo '<br>';
-    }
+$book = new BookProduct('Eliktonik', 20, 1539);
+$notebook = new Notebook('Dell', 1000, 'AMD');
+
+debug($book);
+debug($notebook);
+
+var_dump($notebook instanceof IGadget);
+var_dump($book instanceof IGadget);
+
+
+// offerCase($book);
+offerCase($notebook);
+
+echo $notebook->getcase();
+
+class A
+{
 }
+;
+class B extends A
+{
+}
+;
+class C
+{
+}
+;
 
-// mail('dpm1987@gmail.com', 'mail from uprise', 'uprise lessons 26');
+$a = new A;
+$b = new B;
+$c = new C;
 
-
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
-echo '<br>';
+var_dump($b instanceof C);
